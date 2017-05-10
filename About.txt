@@ -1,0 +1,28 @@
+The game Connect 4 is a two-player board game consisting of 6 rows and 7 columns. The game is also known as four in a row. The object of the game is that each player takes a turn inserting his/her own chip in a column. The chip should land in the lowest possible location in the column. For example if the column was empty then the chip will land in the first row of the column and if the column has 3 chips in it, then the new chip will land in the fourth row of the column and so on. 
+
+Each player has a different color set of chips (let's say yellow and red, or blue and red). Players will contend for the board to insert their chips in a random column. The winner of the game is the player that is able to connect 4 of his/her same color chips in a row either vertically or diagonally. If the board is filled and no player was able to connect 4 in a row, then the game
+will end in a tie.
+
+In this assignment you are to implement a modified version of this game as a multithreaded application that creates three threads, one thread for a referee, and two others to play the connect 4 game. The only problem here is that threads do not take turns, but rather contend for the board. This means that a player can go two times in a row if that player can access the board game before the other. It is OK for this game to be unfair if taking turns doesn't happen.
+
+This is a different version of the producer consumer problem where the producer produces a game board (6x7) and a single integer indicating if a winner has been found or not. The scenario of running the program goes as follows:
+
+1. The producer produces an empty game board, and indicates that no winner has been assigned and play may resume.
+
+2. A thread will only access the board game if it has been released by the producer and also if no winner has been announced and the play may resume.
+
+3. After a player makes a move (based on generating a random number between 1 and 7), the player thread should indicate to the referee that it's time to check for a winner. 
+
+   * The player should print the game board after making the move and insert an appropriate pause so the user has enough time to see the board changing.
+
+4. The referee thread will check to see if there's a winner, and if so, it will announce it and end the game. Otherwise, it will indicate that no winner has been found and play may resume.
+
+   * The referee should either announce a winner or indicate, no winner found and play should resume.
+
+5. Once play resumes and no winner has been found, the next available player thread may take control, insert a chip, and once again indicate to the referee it's time to check. 
+
+   * The player should print the game board after making the move
+
+STEPS 4 and 5 are repeated until a winner is announced or the game ends in a tie.
+
+The program makes use of mutexes and condition variables to check the availabilty of the board and to check if play may resume for the player threads or referee may check the results for the referee thread.
